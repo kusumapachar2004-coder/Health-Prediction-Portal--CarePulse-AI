@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Appointment Confirmed - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container" style="max-width:580px;">
+  <div class="card" style="text-align:center;border-top:6px solid #f39c12;padding:48px 40px;">
+    <div style="width:80px;height:80px;background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 20px;">⏳</div>
+    <span class="badge" style="background:#fff7ed; color:#c2410c;">PENDING APPROVAL</span>
+    <h1 style="font-size:1.8rem;color:#d35400;margin:16px 0 8px;">Appointment Requested!</h1>
+    <p style="color:#718096;">Your consultation request has been sent to the doctor. You will be able to download your receipt once the doctor accepts the request.</p>
+
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px;text-align:left;margin:28px 0;">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e2e8f0;">
+        <span style="color:#718096;font-size:0.9rem;">Doctor</span>
+        <strong>{{ doctor_name }}</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e2e8f0;">
+        <span style="color:#718096;font-size:0.9rem;">Time Slot</span>
+        <strong>{{ slot }}</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;">
+        <span style="color:#718096;font-size:0.9rem;">Status</span>
+        <strong style="color:#c2410c;">⏳ Pending Approval</strong>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a href="/user_dashboard" class="btn btn-primary">👤 Go to User Dashboard</a>
+      <a href="/" class="btn btn-outline">🏠 Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

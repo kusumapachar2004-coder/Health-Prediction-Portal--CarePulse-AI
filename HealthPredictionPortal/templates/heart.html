@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Heart Health - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <span class="badge badge-danger">❤️ CARDIOLOGY</span>
+    <h1>Heart Health Hub</h1>
+    <p>Understand your cardiac health risk with our AI-powered assessment tool.</p>
+  </div>
+
+  <div class="info-two-col">
+    <div class="card" style="border-top:4px solid #d63031;">
+      <h3 style="color:#d63031;margin-bottom:16px;">⚠️ Common Symptoms</h3>
+      <ul class="info-list">
+        <li><span class="icon">🔴</span>Chest pain, pressure, or tightness (Angina)</li>
+        <li><span class="icon">🔴</span>Shortness of breath during activity or at rest</li>
+        <li><span class="icon">🔴</span>Pain radiating to neck, jaw, shoulder, or arm</li>
+        <li><span class="icon">🔴</span>Irregular heartbeat or palpitations</li>
+        <li><span class="icon">🔴</span>Dizziness, lightheadedness, or fainting</li>
+        <li><span class="icon">🔴</span>Unusual fatigue, especially in women</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid #00b894;">
+      <h3 style="color:#00b894;margin-bottom:16px;">✅ Prevention Tips</h3>
+      <ul class="info-list">
+        <li><span class="icon">💚</span>Exercise at least 30 minutes, 5 days a week</li>
+        <li><span class="icon">💚</span>Maintain a heart-healthy, low-sodium diet</li>
+        <li><span class="icon">💚</span>Monitor blood pressure regularly (target: &lt;120/80)</li>
+        <li><span class="icon">💚</span>Avoid smoking and limit alcohol consumption</li>
+        <li><span class="icon">💚</span>Manage stress through yoga, meditation, or hobbies</li>
+        <li><span class="icon">💚</span>Get regular cholesterol and blood sugar checks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">17.9M</div><div class="stat-label">Deaths globally per year</div></div>
+    <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Cases are preventable</div></div>
+    <div class="stat-card"><div class="stat-num">13</div><div class="stat-label">Parameters our AI analyzes</div></div>
+    <div class="stat-card"><div class="stat-num">95%</div><div class="stat-label">Model accuracy</div></div>
+  </div>
+
+  <div class="alert-banner">
+    📋 Our AI has been trained on clinical datasets. Enter your details below for an instant, confidential risk assessment.
+  </div>
+
+  <div style="text-align:center;margin-top:8px;">
+    <a href="/heart_form" class="btn btn-primary btn-lg">🔬 Start Heart Assessment &rarr;</a>
+    <a href="/appointment?dept=heart" class="btn btn-outline btn-lg" style="margin-left:12px;">👨‍⚕️ Book Cardiologist</a>
+  </div>
+</div>
+{% endblock %}

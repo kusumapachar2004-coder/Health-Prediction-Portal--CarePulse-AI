@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Already Booked - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container" style="max-width:560px;">
+  <div class="card" style="text-align:center;border-top:6px solid #f39c12;padding:48px 40px;">
+    <div style="width:80px;height:80px;background:linear-gradient(135deg,#fff4e6,#fdd3a0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 20px;">⚠️</div>
+    <span class="badge" style="background:#fff4e6;color:#92400e;">DUPLICATE BOOKING</span>
+    <h1 style="font-size:1.8rem;color:#f39c12;margin:16px 0 8px;">Already Booked</h1>
+    <p style="color:#718096;">You already have an active appointment scheduled. Only one booking is allowed at a time.</p>
+
+    <div style="background:#fff9f0;border:1px solid #fde68a;border-radius:12px;padding:24px;text-align:left;margin:28px 0;">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #fde68a;">
+        <span style="color:#718096;font-size:0.9rem;">Scheduled With</span>
+        <strong>{{ doctor_name }}</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;">
+        <span style="color:#718096;font-size:0.9rem;">Time Slot</span>
+        <strong>{{ slot }}</strong>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a href="/download_receipt" class="btn btn-danger">📄 Download Your Receipt</a>
+      <a href="/" class="btn btn-outline">🏠 Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

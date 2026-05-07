@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Doctor Dashboard - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div>
+      <span class="badge badge-primary">🩺 MEDICAL PORTAL</span>
+      <h1>Doctor Dashboard</h1>
+      <p>Manage patient appointments and review consultation requests.</p>
+    </div>
+    <div style="background:white; padding:15px 25px; border-radius:12px; box-shadow:var(--shadow); display:flex; align-items:center; gap:15px;">
+      <div style="width:50px; height:50px; background:#e0f2fe; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">👨‍⚕️</div>
+      <div>
+        <strong style="display:block;">Dr. Admin</strong>
+        <span style="font-size:0.8rem; color:#718096;">Chief Medical Officer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row" style="margin-bottom:40px;">
+    <div class="stat-card">
+      <div class="stat-num">{{ all_appointments|selectattr('status', 'equalto', 'Pending')|list|length }}</div>
+      <div class="stat-label">Pending Requests</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ all_appointments|selectattr('status', 'equalto', 'Accepted')|list|length }}</div>
+      <div class="stat-label">Accepted Today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">24</div>
+      <div class="stat-label">Total Patients</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-bottom:25px; display:flex; align-items:center; gap:12px;">
+      <span>📥 Recent Consultation Requests</span>
+    </h2>
+
+    {% if not all_appointments %}
+      <div style="text-align:center; padding:60px 0;">
+        <div style="font-size:4rem; margin-bottom:20px; opacity:0.3;">📋</div>
+        <h3 style="color:#718096;">No pending requests</h3>
+        <p style="color:#a0aec0;">All patient requests have been processed.</p>
+      </div>
+    {% else %}
+      <div class="table-container" style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; min-width:800px;">
+          <thead>
+            <tr style="text-align:left; border-bottom:2px solid #f1f5f9; color:#718096; font-size:0.9rem;">
+              <th style="padding:15px;">PATIENT NAME</th>
+              <th style="padding:15px;">ISSUE / SYMPTOMS</th>
+              <th style="padding:15px;">REQUESTED SLOT</th>
+              <th style="padding:15px;">DOCTOR</th>
+              <th style="padding:15px;">STATUS</th>
+              <th style="padding:15px; text-align:right;">ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for appt in all_appointments|reverse %}
+            <tr style="border-bottom:1px solid #f1f5f9; transition: background 0.2s; cursor:default;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+              <td style="padding:15px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; background:#f1f5f9; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.9rem;">👤</div>
+                  <strong>{{ appt.patient_name }}</strong>
+                </div>
+              </td>
+              <td style="padding:15px; max-width:200px;">
+                <span style="font-size:0.9rem; color:#4a5568;">{{ appt.issue }}</span>
+              </td>
+              <td style="padding:15px;">
+                <span style="font-size:0.9rem; font-weight:500;">{{ appt.slot }}</span>
+              </td>
+              <td style="padding:15px; font-size:0.9rem; color:#718096;">
+                {{ appt.doctor_name }}
+              </td>
+              <td style="padding:15px;">
+                {% if appt.status == 'Pending' %}
+                  <span class="badge" style="background:#fff7ed; color:#c2410c;">⏳ Pending</span>
+                {% elif appt.status == 'Accepted' %}
+                  <span class="badge" style="background:#f0fff4; color:#166534;">✅ Accepted</span>
+                {% else %}
+                  <span class="badge" style="background:#fef2f2; color:#991b1b;">❌ Rejected</span>
+                {% endif %}
+              </td>
+              <td style="padding:15px; text-align:right;">
+                {% if appt.status == 'Pending' %}
+                  <div style="display:flex; justify-content:flex-end; gap:8px;">
+                    <a href="/update_status/{{ appt.id }}/Accepted" class="btn btn-sm btn-success" style="padding:6px 12px;">Accept</a>
+                    <a href="/update_status/{{ appt.id }}/Rejected" class="btn btn-sm btn-danger" style="padding:6px 12px;">Reject</a>
+                  </div>
+                {% else %}
+                  <span style="font-size:0.8rem; color:#a0aec0; font-style:italic;">Processed</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="margin-top:40px; text-align:center;">
+     <p style="color:#718096; font-size:0.9rem;">Powered by CarePulse AI Clinical Intelligence</p>
+  </div>
+</div>
+{% endblock %}

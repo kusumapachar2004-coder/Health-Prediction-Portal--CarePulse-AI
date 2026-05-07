@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Sign Up - CarePulse AI{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="logo">
+      <div style="margin-bottom:16px;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="CarePulse Logo" style="width:64px; height:64px; border-radius:14px; box-shadow:0 8px 24px rgba(10,110,138,0.2);">
+      </div>
+      <h2>Create Account</h2>
+      <p>Join CarePulse AI for free health assessments</p>
+    </div>
+    <form id="signupForm" onsubmit="return handleSignup(event)">
+      <div class="input-group">
+        <label for="fullname">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullname" placeholder="Enter your full name" autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label for="newuser">Username <span class="required">*</span></label>
+        <input type="text" id="newuser" placeholder="Choose a username" autocomplete="username">
+      </div>
+      <div class="input-group">
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="Enter your email" autocomplete="email">
+      </div>
+      <div class="input-group">
+        <label for="newpass">Password <span class="required">*</span></label>
+        <input type="password" id="newpass" placeholder="Create a strong password" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-success btn-full btn-lg" id="signupBtn">Create My Account</button>
+    </form>
+    <div class="divider">or</div>
+    <div class="auth-footer">Already have an account? <a href="/login">Login here</a></div>
+    <div class="auth-footer" style="margin-top:12px;"><a href="/">&larr; Back to Home</a></div>
+  </div>
+</div>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <div id="popupIcon" style="font-size:2.5rem;margin-bottom:10px;">&#9989;</div>
+    <h3 id="popupTitle">Success</h3>
+    <p id="popup-message" style="margin:10px 0 20px;"></p>
+    <button class="btn btn-primary" onclick="closePopup()">OK</button>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function handleSignup(e) {
+  e.preventDefault();
+  var name = document.getElementById("fullname").value.trim();
+  var user = document.getElementById("newuser").value.trim();
+  var email = document.getElementById("email").value.trim();
+  var pass = document.getElementById("newpass").value.trim();
+  var btn = document.getElementById("signupBtn");
+  if (!name||!user||!email||!pass) { showPopup("Missing Fields","Please fill in all required fields.",false); return false; }
+  if (!email.includes("@")) { showPopup("Invalid Email","Please enter a valid email address.",false); return false; }
+  if (pass.length < 6) { showPopup("Weak Password","Password must be at least 6 characters.",false); return false; }
+  btn.textContent = "Creating account..."; btn.disabled = true;
+  setTimeout(function() {
+    showPopup("Account Created!","Welcome to CarePulse AI! Redirecting to login...",true);
+    setTimeout(function() { window.location.href = "/login"; }, 1800);
+  }, 900);
+  return false;
+}
+function showPopup(title, msg, ok) {
+  document.getElementById("popupIcon").innerHTML = ok ? "&#127881;" : "&#9888;&#65039;";
+  document.getElementById("popupTitle").textContent = title;
+  document.getElementById("popup-message").textContent = msg;
+  document.getElementById("popup").style.display = "flex";
+}
+function closePopup() { document.getElementById("popup").style.display = "none"; }
+</script>
+{% endblock %}

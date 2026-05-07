@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <span class="badge badge-primary">👋 WELCOME BACK</span>
+    <h1>Your Health Dashboard</h1>
+    <p>Monitor your appointments and track your health risk assessments.</p>
+  </div>
+
+  <div class="stats-row" style="margin-bottom:40px;">
+    <div class="stat-card">
+      <div class="stat-num">{{ user_appointments|length }}</div>
+      <div class="stat-label">Total Bookings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Assessments Done</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">Normal</div>
+      <div class="stat-label">Latest Heart Risk</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+      <span>📅 Your Appointments</span>
+    </h2>
+    
+    {% if not user_appointments %}
+      <div style="text-align:center; padding:40px 0;">
+        <div style="font-size:3rem; margin-bottom:15px;">🔍</div>
+        <p style="color:#718096;">No appointments found. Start by booking a specialist.</p>
+        <a href="/appointment" class="btn btn-primary" style="margin-top:15px;">Book Now</a>
+      </div>
+    {% else %}
+      <div class="table-container" style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; min-width:600px;">
+          <thead>
+            <tr style="text-align:left; border-bottom:2px solid #f1f5f9;">
+              <th style="padding:15px 10px;">Doctor</th>
+              <th style="padding:15px 10px;">Time Slot</th>
+              <th style="padding:15px 10px;">Status</th>
+              <th style="padding:15px 10px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for appt in user_appointments %}
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:15px 10px;">
+                <strong>{{ appt.doctor_name }}</strong>
+                <div style="font-size:0.8rem; color:#718096;">{{ appt.doctor_specialization }}</div>
+              </td>
+              <td style="padding:15px 10px;">{{ appt.slot }}</td>
+              <td style="padding:15px 10px;">
+                {% if appt.status == 'Pending' %}
+                  <span class="badge" style="background:#fff7ed; color:#c2410c;">⏳ Pending</span>
+                {% elif appt.status == 'Accepted' %}
+                  <span class="badge" style="background:#f0fff4; color:#166534;">✅ Accepted</span>
+                {% else %}
+                  <span class="badge" style="background:#fef2f2; color:#991b1b;">❌ Rejected</span>
+                {% endif %}
+              </td>
+              <td style="padding:15px 10px;">
+                {% if appt.status == 'Accepted' %}
+                  <a href="/download_receipt?id={{ appt.id }}" class="btn btn-sm btn-outline">Receipt</a>
+                {% else %}
+                  <span style="color:#a0aec0;font-size:0.85rem;">Wait for Approval</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="margin-top:40px; display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+    <div class="card" style="border-left:4px solid var(--primary);">
+      <h3>❤️ Heart Health</h3>
+      <p style="font-size:0.9rem; color:#718096; margin:10px 0;">Last assessment: Low Risk</p>
+      <a href="/heart" class="btn btn-sm btn-primary">New Check &rarr;</a>
+    </div>
+    <div class="card" style="border-left:4px solid var(--secondary);">
+      <h3>🩸 Diabetes Check</h3>
+      <p style="font-size:0.9rem; color:#718096; margin:10px 0;">No assessment found.</p>
+      <a href="/diabetes" class="btn btn-sm btn-success">Check Now &rarr;</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

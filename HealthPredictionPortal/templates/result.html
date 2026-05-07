@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Prediction Result - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+
+  {% if "High Risk" in result or result == "Diabetic" %}
+  <div class="result-critical">
+    <div style="font-size:3rem;margin-bottom:12px;">🚨</div>
+    <span class="badge badge-danger">CRITICAL ALERT</span>
+    <h1 style="color:#d63031;font-size:2rem;margin:12px 0;">{{ result }}</h1>
+    <p style="color:#7f0000;font-size:1rem;margin-bottom:28px;">Your health parameters indicate a <strong>high level of risk</strong>. Please do not delay seeking medical attention.</p>
+    <a href="tel:108" class="emergency-btn" style="font-size:1.1rem;padding:16px 40px;">🚑 Call Emergency Ambulance (108)</a>
+    <p style="margin-top:16px;font-size:0.85rem;color:#718096;">Or consult the recommended specialist listed below immediately.</p>
+  </div>
+  {% else %}
+  <div class="result-normal">
+    <div style="font-size:3rem;margin-bottom:12px;">✅</div>
+    <span class="badge badge-success">LOW RISK</span>
+    <h1 style="color:#0a6e8a;font-size:2rem;margin:12px 0;">{{ result }}</h1>
+    <p style="color:#065f46;font-size:1rem;">Great news! Your current health parameters show a low risk. Keep maintaining a healthy lifestyle.</p>
+  </div>
+  {% endif %}
+
+  <div style="margin:28px 0;">
+    <button class="btn btn-primary" onclick="toggleHospitals()" id="hospitalBtn">🏥 Show Recommended Hospitals</button>
+  </div>
+
+  <div id="hospitalSection" style="display:none;margin-bottom:32px;">
+    <h3 style="margin-bottom:16px;">Hospitals Specializing in {{ doctor_type }} Care</h3>
+    <div class="hospital-grid">
+      <div class="hospital-card"><h3>🏥 AIIMS</h3><p>New Delhi | Rating: ⭐ 4.8/5</p></div>
+      <div class="hospital-card"><h3>🏥 Apollo Hospitals</h3><p>Multi-City | Rating: ⭐ 4.7/5</p></div>
+      <div class="hospital-card"><h3>🏥 Fortis Healthcare</h3><p>Cardiac Care | Rating: ⭐ 4.6/5</p></div>
+      <div class="hospital-card"><h3>🏥 Manipal Hospitals</h3><p>Bangalore | Rating: ⭐ 4.5/5</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:20px;">👨‍⚕️ Available {{ doctor_type }}s - Book Now</h3>
+    {% for doc in doctors %}
+    <div style="border-bottom:1px solid #e2e8f0;padding:20px 0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="doctor-avatar" style="width:48px;height:48px;font-size:1.3rem;">👨‍⚕️</div>
+        <div>
+          <strong>{{ doc.name }}</strong>
+          <p style="margin:2px 0;font-size:0.82rem;color:#718096;">{{ doc.specialization }}</p>
+        </div>
+      </div>
+      <form action="/book" method="POST" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="hidden" name="doctor_id" value="{{ doc.id }}">
+        <select name="slot" style="min-width:140px;">
+          {% for s in doc.slots %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+        </select>
+        <button type="submit" class="btn btn-success btn-sm">Book Slot</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div style="text-align:center;margin-top:16px;">
+    <a href="/" class="btn btn-outline">🏠 Back to Home</a>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+var vis = false;
+function toggleHospitals() {
+  vis = !vis;
+  document.getElementById("hospitalSection").style.display = vis ? "block" : "none";
+  document.getElementById("hospitalBtn").textContent = vis ? "🏥 Hide Hospitals" : "🏥 Show Recommended Hospitals";
+}
+</script>
+{% endblock %}

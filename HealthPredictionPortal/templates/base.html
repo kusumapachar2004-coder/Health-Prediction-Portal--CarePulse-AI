@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Health Prediction Portal - AI-driven risk assessment and instant doctor consultations">
+  <title>{% block title %}Health Prediction Portal{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+{% block navbar %}
+<nav class="navbar">
+  <a href="/" class="navbar-brand">
+    <div class="logo-icon">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="CarePulse Logo" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+    </div>
+    <span>Care<em>Pulse</em> AI</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Home</a>
+    <a href="/heart" {% if request.path == '/heart' %}class="active"{% endif %}>❤️ Heart</a>
+    <a href="/diabetes" {% if request.path == '/diabetes' %}class="active"{% endif %}>🩸 Diabetes</a>
+    <a href="/appointment" {% if request.path == '/appointment' %}class="active"{% endif %}>📅 Appointment</a>
+    <a href="/user_dashboard" {% if request.path == '/user_dashboard' %}class="active"{% endif %}>👤 User Portal</a>
+    <a href="/doctor_dashboard" {% if request.path == '/doctor_dashboard' %}class="active"{% endif %}>🩺 Doctor Portal</a>
+    <a href="tel:108" class="emergency-btn">🚑 Call 108</a>
+  </div>
+</nav>
+{% endblock %}
+
+{% block body %}
+<main>
+  {% block content %}{% endblock %}
+</main>
+{% endblock %}
+
+<footer class="footer">
+  <p><strong>CarePulse AI</strong> &mdash; Health Prediction Portal &copy; 2024 &nbsp;|&nbsp; 🚑 Emergency: <strong>108</strong> &nbsp;|&nbsp; Not a substitute for professional medical advice.</p>
+</footer>
+
+<!-- EMERGENCY CONFIRMATION MODAL -->
+<div id="emergencyModal" class="modal" style="display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:9999;">
+  <div class="modal-content" id="emergencyContent" style="max-width:420px; text-align:center; border-top:8px solid var(--danger); padding:40px 30px;">
+    <!-- Step 1: Confirmation -->
+    <div id="emergencyStep1">
+      <div style="font-size:3.5rem; margin-bottom:15px; animation: pulse-red 1s infinite;">🚨</div>
+      <h2 style="color:var(--danger); margin-bottom:10px; font-size:1.8rem;">Emergency Call</h2>
+      <p style="margin-bottom:25px; font-size:1.1rem; color:#4a5568;">You are about to initiate an emergency request for an <strong>Ambulance (108)</strong>. Are you sure?</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button class="btn btn-danger btn-lg" style="font-size:1.1rem; padding:15px;" onclick="startAmbulanceDispatch()">🚑 CONFIRM & REQUEST AMBULANCE</button>
+        <button class="btn btn-outline" onclick="closeEmergencyModal()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Connecting -->
+    <div id="emergencyStep2" style="display:none;">
+      <div class="spinner" style="width:60px; height:60px; border-top-color:var(--danger); margin:0 auto 20px;"></div>
+      <h2 style="color:var(--primary); margin-bottom:10px;">Connecting...</h2>
+      <p style="color:#4a5568;">Establishing secure connection to the nearest emergency dispatch center...</p>
+    </div>
+
+    <!-- Step 3: Dispatched -->
+    <div id="emergencyStep3" style="display:none;">
+      <div style="font-size:4rem; margin-bottom:15px;">✅</div>
+      <h2 style="color:#00b894; margin-bottom:10px;">Ambulance Dispatched</h2>
+      <div style="background:#f0fff4; border:1px solid #c6f6d5; border-radius:12px; padding:20px; margin:20px 0; text-align:left;">
+        <p style="margin-bottom:8px;"><strong>Status:</strong> En route to your location</p>
+        <p style="margin-bottom:8px;"><strong>Vehicle:</strong> MH-01-AMB-<span id="ambulanceVehicle">4209</span></p>
+        <p><strong>ETA:</strong> <span id="ambulanceEta">8</span> minutes</p>
+      </div>
+      <p style="font-size:0.9rem; color:#718096; margin-bottom:20px;">Please stay on the line if your phone is ringing. Keep your GPS enabled.</p>
+      <button class="btn btn-primary btn-full" onclick="closeEmergencyModal()">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function triggerEmergency() {
+  const modal = document.getElementById('emergencyModal');
+  document.getElementById('emergencyStep1').style.display = 'block';
+  document.getElementById('emergencyStep2').style.display = 'none';
+  document.getElementById('emergencyStep3').style.display = 'none';
+  modal.style.display = 'flex';
+}
+
+function startAmbulanceDispatch() {
+  document.getElementById('emergencyStep1').style.display = 'none';
+  document.getElementById('emergencyStep2').style.display = 'block';
+  
+  // Simulate dispatch delay
+  setTimeout(() => {
+    document.getElementById('emergencyStep2').style.display = 'none';
+    document.getElementById('emergencyStep3').style.display = 'block';
+    
+    // Set a random ETA between 5 and 12 minutes
+    document.getElementById('ambulanceEta').textContent = Math.floor(Math.random() * 8) + 5;
+    
+    // Set a random vehicle number
+    document.getElementById('ambulanceVehicle').textContent = Math.floor(1000 + Math.random() * 9000);
+  }, 2500);
+}
+
+function closeEmergencyModal() {
+  document.getElementById('emergencyModal').style.display = 'none';
+}
+
+// Intercept all emergency clicks
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('[href="tel:108"]');
+  if (target) {
+    e.preventDefault();
+    triggerEmergency();
+  }
+});
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

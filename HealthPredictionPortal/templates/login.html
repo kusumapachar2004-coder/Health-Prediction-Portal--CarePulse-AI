@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Login - CarePulse AI{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="logo">
+      <div style="margin-bottom:16px;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="CarePulse Logo" style="width:64px; height:64px; border-radius:14px; box-shadow:0 8px 24px rgba(10,110,138,0.2);">
+      </div>
+      <h2>Welcome Back</h2>
+      <p>Login to your CarePulse AI account</p>
+    </div>
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+      <div class="input-group">
+        <label for="username">Username <span class="required">*</span></label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username">
+      </div>
+      <div class="input-group">
+        <label for="password">Password <span class="required">*</span></label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="loginBtn">Login to Portal</button>
+    </form>
+    <div class="divider">or</div>
+    <div class="auth-footer">Don't have an account? <a href="/signup">Sign up free</a></div>
+    <div class="auth-footer" style="margin-top:12px;"><a href="/">&larr; Back to Home</a></div>
+  </div>
+</div>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <div id="popupIcon" style="font-size:2.5rem;margin-bottom:10px;">&#9989;</div>
+    <h3 id="popupTitle">Success</h3>
+    <p id="popup-message" style="margin:10px 0 20px;"></p>
+    <button class="btn btn-primary" onclick="closePopup()">OK</button>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function handleLogin(e) {
+  e.preventDefault();
+  var user = document.getElementById("username").value.trim();
+  var pass = document.getElementById("password").value.trim();
+  var btn = document.getElementById("loginBtn");
+  if (!user || !pass) { showPopup("Missing Fields","Please enter both username and password.",false); return false; }
+  btn.textContent = "Logging in..."; btn.disabled = true;
+  setTimeout(function() {
+    showPopup("Login Successful!","Welcome back to CarePulse AI. Redirecting...",true);
+    setTimeout(function() { window.location.href = "/"; }, 1500);
+  }, 800);
+  return false;
+}
+function showPopup(title, msg, ok) {
+  document.getElementById("popupIcon").innerHTML = ok ? "&#9989;" : "&#9888;&#65039;";
+  document.getElementById("popupTitle").textContent = title;
+  document.getElementById("popup-message").textContent = msg;
+  document.getElementById("popup").style.display = "flex";
+}
+function closePopup() { document.getElementById("popup").style.display = "none"; }
+</script>
+{% endblock %}

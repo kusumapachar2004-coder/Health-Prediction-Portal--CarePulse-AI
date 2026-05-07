@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Diabetes Check - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <span class="badge badge-success">&#129504; ENDOCRINOLOGY</span>
+    <h1>Diabetes Risk Assessment</h1>
+    <p>Detect early signs of diabetes and pre-diabetes with our clinical AI model.</p>
+  </div>
+  <div class="info-two-col">
+    <div class="card" style="border-top:4px solid #f39c12;">
+      <h3 style="color:#f39c12;margin-bottom:16px;">⚠️ Common Symptoms</h3>
+      <ul class="info-list">
+        <li><span class="icon">🟠</span>Frequent urination, especially at night</li>
+        <li><span class="icon">🟠</span>Excessive thirst and dry mouth</li>
+        <li><span class="icon">🟠</span>Unexplained weight loss</li>
+        <li><span class="icon">🟠</span>Blurred vision or slow wound healing</li>
+        <li><span class="icon">🟠</span>Constant fatigue and lack of energy</li>
+        <li><span class="icon">🟠</span>Tingling or numbness in hands and feet</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid #00b894;">
+      <h3 style="color:#00b894;margin-bottom:16px;">✅ Prevention Tips</h3>
+      <ul class="info-list">
+        <li><span class="icon">💚</span>Maintain a healthy BMI (18.5 to 24.9 range)</li>
+        <li><span class="icon">💚</span>Reduce refined sugar and processed carbs</li>
+        <li><span class="icon">💚</span>Exercise regularly - even 20 to 30 min walks help</li>
+        <li><span class="icon">💚</span>Monitor fasting blood glucose annually</li>
+        <li><span class="icon">💚</span>Eat more fiber-rich vegetables and whole grains</li>
+        <li><span class="icon">💚</span>Stay hydrated and limit sugary beverages</li>
+      </ul>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">537M</div><div class="stat-label">Adults with diabetes globally</div></div>
+    <div class="stat-card"><div class="stat-num">1 in 2</div><div class="stat-label">Are undiagnosed</div></div>
+    <div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Parameters our AI analyzes</div></div>
+    <div class="stat-card"><div class="stat-num">95%</div><div class="stat-label">Model accuracy</div></div>
+  </div>
+  <div class="alert-banner">📋 Fill in your clinical values below. Results are instant and completely confidential.</div>
+  <div style="text-align:center;margin-top:8px;">
+    <a href="/diabetes_form" class="btn btn-primary btn-lg">🩸 Start Diabetes Assessment &rarr;</a>
+    <a href="/appointment?dept=diabetes" class="btn btn-outline btn-lg" style="margin-left:12px;">👨‍⚕️ Book Endocrinologist</a>
+  </div>
+</div>
+{% endblock %}

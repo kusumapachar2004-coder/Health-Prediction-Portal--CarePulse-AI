@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Welcome - CarePulse AI Health Portal{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block body %}
+<nav class="navbar" style="position:fixed;width:100%;top:0;left:0;background:rgba(10,110,138,0.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);">
+  <a href="/" class="navbar-brand">
+    <div class="logo-icon">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="CarePulse Logo" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+    </div>
+    <span>Care<em>Pulse</em> AI</span>
+  </a>
+  <div class="nav-links">
+    <a href="/user_dashboard" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3); padding:9px 15px;">👤 User Portal</a>
+    <a href="/doctor_dashboard" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3); padding:9px 15px;">🩺 Doctor Portal</a>
+    <a href="/login" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.5); padding:9px 20px;">Login</a>
+    <a href="/signup" class="btn btn-success" style="padding:9px 20px;">Sign Up</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-content" style="margin-top:60px;">
+    <div class="hero-badge">&#9877; AI-Powered Health Intelligence</div>
+    <h1>Your Health.<br><span>Predicted.</span> Protected.</h1>
+    <p>Advanced AI models trained on clinical data to detect heart disease and diabetes risk instantly - right from your browser.</p>
+    <div class="hero-cta">
+      <a href="/signup" class="btn btn-success btn-lg">Get Started Free &rarr;</a>
+      <a href="/login" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:white;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);">Login to Portal</a>
+    </div>
+    <a href="tel:108" class="emergency-btn" style="font-size:1rem;padding:12px 28px;margin-bottom:48px;display:inline-flex;">🚨 Medical Emergency? Call 108 Now</a>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">95%</div><div class="label">PREDICTION ACCURACY</div></div>
+      <div class="hero-stat"><div class="num">2</div><div class="label">DISEASE MODULES</div></div>
+      <div class="hero-stat"><div class="num">4+</div><div class="label">SPECIALIST DOCTORS</div></div>
+      <div class="hero-stat"><div class="num">24/7</div><div class="label">EMERGENCY SUPPORT</div></div>
+    </div>
+  </div>
+</div>
+
+<section style="background:#f8fafc;padding:80px 20px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="page-header">
+      <span class="badge badge-primary">OUR SERVICES</span>
+      <h1>Everything You Need, In One Portal</h1>
+      <p>Assess risk, book specialists, and get the right care - all in minutes.</p>
+    </div>
+    <div class="features-grid">
+      <a href="/heart" class="feature-card">
+        <div class="feature-icon blue">❤️</div>
+        <h3>Heart Disease Analysis</h3>
+        <p>AI-powered cardiac risk assessment using 13 clinical parameters. Get instant insights about your heart health.</p>
+        <div class="arrow">Analyze Now &rarr;</div>
+      </a>
+      <a href="/diabetes" class="feature-card">
+        <div class="feature-icon green">🩸</div>
+        <h3>Diabetes Risk Check</h3>
+        <p>Detect diabetes and pre-diabetes risk using blood sugar, BMI, insulin, and other key health markers.</p>
+        <div class="arrow">Check Risk &rarr;</div>
+      </a>
+      <a href="/appointment" class="feature-card">
+        <div class="feature-icon purple">👨‍⚕️</div>
+        <h3>Book a Specialist</h3>
+        <p>Connect with Cardiologists, Endocrinologists, and General Physicians. View slots and book instantly.</p>
+        <div class="arrow">Find Doctors &rarr;</div>
+      </a>
+      <a href="tel:108" class="feature-card">
+        <div class="feature-icon orange">🚑</div>
+        <h3>Emergency Ambulance</h3>
+        <p>One-touch call to emergency services. Available 24/7 for critical situations across India.</p>
+        <div class="arrow">Call 108 &rarr;</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section style="background:linear-gradient(135deg,#0a6e8a,#053e50);padding:80px 20px;text-align:center;">
+  <h2 style="color:white;font-size:2.2rem;font-weight:800;margin-bottom:16px;">Ready to Take Control of Your Health?</h2>
+  <p style="color:rgba(255,255,255,0.7);font-size:1.05rem;margin-bottom:36px;">Create your free account and get your first risk assessment in under 2 minutes.</p>
+  <a href="/signup" class="btn btn-success btn-lg">Create Free Account &rarr;</a>
+</section>
+
+<section style="background:#fff; padding:60px 20px; text-align:center; border-top:1px solid #edf2f7; margin-top:0;">
+  <div style="max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:40px;">
+    <div>
+      <div style="font-size:2rem; margin-bottom:12px;">🔒</div>
+      <h4 style="margin-bottom:8px; font-weight:700; color:var(--primary);">Secure & Private</h4>
+      <p style="font-size:0.9rem; color:#718096;">All your clinical data is encrypted and stored securely.</p>
+    </div>
+    <div>
+      <div style="font-size:2rem; margin-bottom:12px;">🛡️</div>
+      <h4 style="margin-bottom:8px; font-weight:700; color:var(--primary);">HIPAA Compliant</h4>
+      <p style="font-size:0.9rem; color:#718096;">We follow international standards for health data protection.</p>
+    </div>
+    <div>
+      <div style="font-size:2rem; margin-bottom:12px;">⚡</div>
+      <h4 style="margin-bottom:8px; font-weight:700; color:var(--primary);">Instant Results</h4>
+      <p style="font-size:0.9rem; color:#718096;">Get AI-powered risk assessment in under 60 seconds.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

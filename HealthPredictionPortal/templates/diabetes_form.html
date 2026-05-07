@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Diabetes Assessment Form - CarePulse AI{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <span class="badge badge-success">&#129504; DIABETES ASSESSMENT</span>
+    <h1>Diabetes Risk Form</h1>
+    <p>Enter your health metrics below. The AI will analyze them instantly.</p>
+  </div>
+  <div class="card" style="max-width:640px;margin:0 auto;">
+    <div class="steps">
+      <div class="step done"><span class="step-num">&#10003;</span>Diabetes Info</div>
+      <div class="step-line"></div>
+      <div class="step active"><span class="step-num">2</span>Enter Details</div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-num">3</span>Get Results</div>
+    </div>
+    <form action="/predict_diabetes" method="post">
+      <div class="input-group">
+        <label>Pregnancies <span class="required">*</span> <small style="color:#718096">(number of times)</small></label>
+        <input type="number" name="Pregnancies" placeholder="e.g. 2" min="0" required>
+      </div>
+      <div class="input-group">
+        <label>Glucose Level <span class="required">*</span> <small style="color:#718096">(mg/dL)</small></label>
+        <input type="number" name="Glucose" placeholder="e.g. 120" required>
+      </div>
+      <div class="input-group">
+        <label>Blood Pressure <span class="required">*</span> <small style="color:#718096">(mm Hg)</small></label>
+        <input type="number" name="BloodPressure" placeholder="e.g. 70" required>
+      </div>
+      <div class="input-group">
+        <label>Skin Thickness <span class="required">*</span> <small style="color:#718096">(mm)</small></label>
+        <input type="number" name="SkinThickness" placeholder="e.g. 20" required>
+      </div>
+      <div class="input-group">
+        <label>Insulin Level <span class="required">*</span> <small style="color:#718096">(mu U/ml)</small></label>
+        <input type="number" name="Insulin" placeholder="e.g. 80" required>
+      </div>
+      <div class="input-group">
+        <label>BMI <span class="required">*</span> <small style="color:#718096">(kg/m2)</small></label>
+        <input type="number" step="0.1" name="BMI" placeholder="e.g. 25.5" required>
+      </div>
+      <div class="input-group">
+        <label>Diabetes Pedigree Function <span class="required">*</span></label>
+        <input type="number" step="0.001" name="DiabetesPedigreeFunction" placeholder="e.g. 0.627" required>
+      </div>
+      <div class="input-group">
+        <label>Age <span class="required">*</span></label>
+        <input type="number" name="Age" placeholder="e.g. 35" min="1" max="120" required>
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <button type="submit" class="btn btn-success btn-lg" style="min-width:240px;">&#129514; Analyze Diabetes Risk &rarr;</button>
+        <p style="margin-top:12px;font-size:0.82rem;color:#718096;">&#128274; Your data is processed locally and never stored.</p>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
